@@ -1,22 +1,111 @@
 @import "tailwindcss";
 
+/* Base theme variables */
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --heading: #111827;
+  --subheading: #374151;
+  --paragraph: #4b5563;
+  --muted: #6b7280;
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --card-bg: #f9fafb;
+  --card-border: #e5e7eb;
 }
 
 .dark {
   --background: #0a0a0a;
   --foreground: #ededed;
+  --heading: #f3f4f6;
+  --subheading: #e5e7eb;
+  --paragraph: #d1d5db;
+  --muted: #9ca3af;
+  --accent: #3b82f6;
+  --accent-hover: #60a5fa;
+  --card-bg: #111827;
+  --card-border: #1f2937;
+}
+
+/* System theme preference support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --heading: #f3f4f6;
+    --subheading: #e5e7eb;
+    --paragraph: #d1d5db;
+    --muted: #9ca3af;
+    --accent: #3b82f6;
+    --accent-hover: #60a5fa;
+    --card-bg: #111827;
+    --card-border: #1f2937;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  html {
+    color-scheme: light;
+  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans);
+  min-height: 100vh;
 }
 
-/* Add smooth transition for theme changes */
+/* Component-specific styles */
+.bg-card {
+  background-color: var(--card-bg);
+  border-color: var(--card-border);
+}
+
+/* Smooth transitions */
 * {
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading);
+}
+
+.text-subtitle {
+  color: var(--subheading);
+}
+
+p {
+  color: var(--paragraph);
+}
+
+.text-muted {
+  color: var(--muted);
+}
+
+/* Gradients with proper text contrast */
+.bg-gradient-text {
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  color: transparent !important;
+}
+
+/* Accessibility */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Fix for iOS Safari which doesn't support system dark mode properly */
+@supports (-webkit-touch-callout: none) {
+  @media (prefers-color-scheme: dark) {
+    html {
+      color-scheme: dark;
+    }
+  }
 }

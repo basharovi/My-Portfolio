@@ -46,7 +46,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-text bg-gradient-to-r from-blue-600 to-purple-600"
             >
               Assalamu Alaikum, I&apos;m <span className="text-gray-900 dark:text-white">Bashar Ovi</span>
             </motion.h1>
@@ -59,7 +59,7 @@ export default function Hero() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.5 }}
-                  className="text-2xl md:text-3xl font-semibold mb-4 text-gray-700 dark:text-gray-300"
+                  className="text-2xl md:text-3xl font-semibold mb-4 text-gray-800 dark:text-gray-300"
                 >
                   {roles[currentRoleIndex]}
                 </motion.h2>
@@ -70,7 +70,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-lg text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto lg:mx-0"
+              className="text-lg text-gray-700 dark:text-gray-400 mb-6 max-w-2xl mx-auto lg:mx-0"
             >
               From a spark of curiosity to crafting powerful applications — my journey as a Software Engineer is fueled by passion, patience, and the joy of building meaningful software.
             </motion.p>

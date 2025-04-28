@@ -31,18 +31,15 @@ export default function Navbar() {
   // Mount effect to prevent hydration mismatch
   useEffect(() => {
     setMounted(true);
-  }, []);
+    
+    // Always use system theme
+    setTheme('system');
+    localStorage.removeItem('theme');
+    
+  }, [setTheme]);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-  };
-
-  const toggleTheme = () => {
-    if (theme === 'system') {
-      setTheme('light');
-    } else {
-      setTheme(theme === 'dark' ? 'light' : 'dark');
-    }
   };
 
   useEffect(() => {
@@ -189,22 +186,7 @@ export default function Navbar() {
 
           {/* Right Menu */}
           <div className="flex items-center space-x-4">
-            {/* Theme Toggle - Hidden for now */}
-            {/* {mounted && (
-              <motion.button
-                onClick={toggleTheme}
-                className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-              >
-                {isDark ? (
-                  <FiSun className="w-5 h-5 text-yellow-400" />
-                ) : (
-                  <FiMoon className="w-5 h-5 text-gray-700" />
-                )}
-              </motion.button>
-            )} */}
+            {/* Theme Toggle - Removed, using system theme only */}
 
             {/* Mobile Menu Button */}
             <motion.button

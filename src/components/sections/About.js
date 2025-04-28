@@ -70,6 +70,10 @@ export default function About() {
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">About Me</h2>
             <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+            <p className="text-lg text-gray-700 dark:text-gray-400 max-w-2xl mx-auto">
+              Passionate software engineer with a keen eye for design and a commitment to creating
+              exceptional digital experiences that make a difference.
+            </p>
           </motion.div>
         </div>
 
@@ -83,14 +87,14 @@ export default function About() {
             >
               {/* Display completed paragraphs */}
               {typedParagraphs.map((paragraph, index) => (
-                <p key={index} className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+                <p key={index} className="text-gray-800 dark:text-gray-300 leading-relaxed mb-4">
                   {paragraph}
                 </p>
               ))}
               
               {/* Currently typing paragraph */}
               {!isTypingComplete && (
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p className="text-gray-800 dark:text-gray-300 leading-relaxed">
                   {currentText}
                   <span className="animate-pulse ml-0.5 inline-block h-5 w-0.5 bg-blue-500 dark:bg-blue-400"></span>
                 </p>
