@@ -203,14 +203,14 @@ export default function BlogPostPage() {
       <div className="py-24">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-3xl font-bold mb-6">Post Not Found</h1>
-          <p className="mb-6">Sorry, the blog post you're looking for doesn't exist.</p>
-          <a 
+          <p className="mb-6">Sorry, the blog post you&apos;re looking for doesn&apos;t exist.</p>
+          <Link 
             href="/blog"
             className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline"
           >
             <FiArrowLeft className="mr-2" />
             Back to Blog
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -220,13 +220,13 @@ export default function BlogPostPage() {
     <div className="py-24">
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Back Button */}
-        <a 
+        <Link 
           href="/blog"
           className="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 mb-8"
         >
           <FiArrowLeft className="mr-2" />
           Back to Blog
-        </a>
+        </Link>
         
         {/* Article Header */}
         <article className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">

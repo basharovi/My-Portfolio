@@ -143,7 +143,7 @@ export default function Contact() {
             {submitStatus === 'success' && (
               <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-md text-green-700 dark:text-green-400 flex items-center" role="alert">
                 <FiCheck className="mr-2 flex-shrink-0" aria-hidden="true" />
-                <span>Thank you for your message! I'll get back to you soon.</span>
+                <span>Thank you for your message! I&apos;ll get back to you soon.</span>
               </div>
             )}
             

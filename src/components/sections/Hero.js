@@ -48,7 +48,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600"
             >
-              Hi, I'm <span className="text-gray-900 dark:text-white">Bashar Ovi</span>
+              Hi, I&apos;m <span className="text-gray-900 dark:text-white">Bashar Ovi</span>
             </motion.h1>
             
             <div className="h-16 overflow-hidden">

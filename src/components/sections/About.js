@@ -45,16 +45,16 @@ export default function About() {
           >
             <h3 className="text-2xl font-bold mb-4">My Journey</h3>
             <p className="text-gray-600 dark:text-gray-400 mb-4">
-              I started my journey as a web developer over 5 years ago. Since then, I've worked on a wide range of projects, 
+              I started my journey as a web developer over 5 years ago. Since then, I&apos;ve worked on a wide range of projects, 
               from simple landing pages to complex applications. I specialize in creating responsive, user-friendly websites
               and applications that not only look great but also provide exceptional user experiences.
             </p>
             <p className="text-gray-600 dark:text-gray-400 mb-4">
               My approach combines creative design with clean, efficient code to deliver solutions that exceed expectations. 
-              I'm constantly learning and staying updated with the latest technologies and best practices in the field.
+              I&apos;m constantly learning and staying updated with the latest technologies and best practices in the field.
             </p>
             <p className="text-gray-600 dark:text-gray-400">
-              When I'm not coding, you can find me exploring new design trends, contributing to open-source projects, 
+              When I&apos;m not coding, you can find me exploring new design trends, contributing to open-source projects, 
               or enjoying outdoor activities to maintain a healthy work-life balance.
             </p>
           </motion.div>
