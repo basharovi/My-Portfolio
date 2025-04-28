@@ -48,13 +48,13 @@ export const metadata = {
   },
   facebook: {
     appId: "", // If you have a Facebook app ID
-    title: "Bashar Ovi | Senior Software Engineer",
+    title: "Bashar Ovi | Software Engineer",
     description: "Professional portfolio of a passionate Software Engineer specialized in C# and .NET ecosystem",
     images: ["/images/basharovi.jpg"],
     url: "https://basharovi.vercel.app",
   },
   whatsapp: {
-    title: "Bashar Ovi | Senior Software Engineer",
+    title: "Bashar Ovi | Software Engineer",
     description: "Professional portfolio of a passionate Software Engineer specialized in C# and .NET ecosystem",
     image: "/images/basharovi.jpg",
   },
