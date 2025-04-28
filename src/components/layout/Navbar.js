@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { FiSun, FiMoon, FiMenu, FiX } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 
 const navLinks = [
   { title: 'Home', path: '/', isSection: true, sectionId: 'hero' },
@@ -25,6 +26,7 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
   const isDark = theme === 'dark';
+  const pathname = usePathname();
 
   // Mount effect to prevent hydration mismatch
   useEffect(() => {
@@ -36,7 +38,11 @@ export default function Navbar() {
   };
 
   const toggleTheme = () => {
-    setTheme(isDark ? 'light' : 'dark');
+    if (theme === 'system') {
+      setTheme('light');
+    } else {
+      setTheme(theme === 'dark' ? 'light' : 'dark');
+    }
   };
 
   useEffect(() => {
@@ -55,8 +61,8 @@ export default function Navbar() {
   useEffect(() => {
     const observerOptions = {
       root: null,
-      rootMargin: '0px',
-      threshold: 0.5,
+      rootMargin: '-100px 0px',
+      threshold: 0.1,
     };
 
     const observerCallback = (entries) => {
@@ -84,61 +90,91 @@ export default function Navbar() {
         }
       });
     };
-  }, []);
+  }, [pathname]);
 
   const handleSectionClick = (e, sectionId) => {
     e.preventDefault();
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-      setIsOpen(false);
+    if (pathname !== '/') {
+      // If not on home page, navigate to home page first
+      window.location.href = `/#${sectionId}`;
+    } else {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+        setIsOpen(false);
+      }
     }
   };
 
   return (
-    <nav 
+    <motion.nav 
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md py-2 shadow-md' : 'bg-transparent py-4'
+        scrolled 
+          ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg py-2 shadow-lg' 
+          : 'bg-transparent py-4'
       }`}
-      role="navigation"
-      aria-label="Main navigation"
     >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2" aria-label="Go to homepage">
-            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+          <Link href="/" className="flex items-center space-x-2 group">
+            <motion.span 
+              className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
               Portfolio
-            </span>
+            </motion.span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
               link.isSection ? (
-                <a
+                <motion.a
                   key={link.title}
                   href={`#${link.sectionId}`}
                   onClick={(e) => handleSectionClick(e, link.sectionId)}
-                  className={`text-sm transition-colors ${
+                  className="relative group"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className={`text-sm transition-colors ${
                     activeSection === link.sectionId
                       ? 'text-blue-600 dark:text-blue-400'
                       : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-                  }`}
-                  aria-current={activeSection === link.sectionId ? 'page' : undefined}
-                >
-                  {link.title}
-                </a>
+                  }`}>
+                    {link.title}
+                  </span>
+                  {activeSection === link.sectionId && (
+                    <motion.div
+                      className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 dark:bg-blue-400"
+                      layoutId="underline"
+                      transition={{ 
+                        type: "spring", 
+                        stiffness: 500,
+                        damping: 30,
+                        mass: 0.5,
+                        duration: 0.2
+                      }}
+                    />
+                  )}
+                </motion.a>
               ) : link.isExternal ? (
-                <a
+                <motion.a
                   key={link.title}
                   href={link.path}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   {link.title}
-                </a>
+                </motion.a>
               ) : (
                 <Link
                   key={link.title}
@@ -151,28 +187,39 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Right Menu (Theme Toggle and Mobile Menu) */}
-          <div className="flex items-center">
-            {/* Theme Toggle */}
-            {mounted && (
-              <button 
-                onClick={toggleTheme} 
-                className="p-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full"
+          {/* Right Menu */}
+          <div className="flex items-center space-x-4">
+            {/* Theme Toggle - Hidden for now */}
+            {/* {mounted && (
+              <motion.button
+                onClick={toggleTheme}
+                className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
                 aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
               >
-                {isDark ? <FiSun aria-hidden="true" /> : <FiMoon aria-hidden="true" />}
-              </button>
-            )}
-            
+                {isDark ? (
+                  <FiSun className="w-5 h-5 text-yellow-400" />
+                ) : (
+                  <FiMoon className="w-5 h-5 text-gray-700" />
+                )}
+              </motion.button>
+            )} */}
+
             {/* Mobile Menu Button */}
-            <button 
-              onClick={toggleMenu} 
-              className="ml-2 p-2 md:hidden text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full"
-              aria-expanded={isOpen}
-              aria-label="Toggle navigation menu"
+            <motion.button
+              onClick={toggleMenu}
+              className="md:hidden p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              aria-label="Toggle menu"
             >
-              {isOpen ? <FiX aria-hidden="true" size={20} /> : <FiMenu aria-hidden="true" size={20} />}
-            </button>
+              {isOpen ? (
+                <FiX className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+              ) : (
+                <FiMenu className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+              )}
+            </motion.button>
           </div>
         </div>
       </div>
@@ -187,48 +234,51 @@ export default function Navbar() {
             transition={{ duration: 0.3 }}
             className="md:hidden bg-white dark:bg-gray-900 shadow-lg"
           >
-            <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
-              {navLinks.map((link) => (
-                link.isSection ? (
-                  <a
-                    key={link.title}
-                    href={`#${link.sectionId}`}
-                    onClick={(e) => handleSectionClick(e, link.sectionId)}
-                    className={`text-sm transition-colors py-2 ${
-                      activeSection === link.sectionId
-                        ? 'text-blue-600 dark:text-blue-400'
-                        : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-                    }`}
-                    aria-current={activeSection === link.sectionId ? 'page' : undefined}
-                  >
-                    {link.title}
-                  </a>
-                ) : link.isExternal ? (
-                  <a
-                    key={link.title}
-                    href={link.path}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {link.title}
-                  </a>
-                ) : (
-                  <Link
-                    key={link.title}
-                    href={link.path}
-                    className="text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {link.title}
-                  </Link>
-                )
-              ))}
+            <div className="container mx-auto px-4 py-4">
+              <div className="flex flex-col space-y-4">
+                {navLinks.map((link) => (
+                  link.isSection ? (
+                    <motion.a
+                      key={link.title}
+                      href={`#${link.sectionId}`}
+                      onClick={(e) => handleSectionClick(e, link.sectionId)}
+                      className={`text-sm transition-colors py-2 ${
+                        activeSection === link.sectionId
+                          ? 'text-blue-600 dark:text-blue-400'
+                          : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
+                      }`}
+                      whileHover={{ x: 5 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {link.title}
+                    </motion.a>
+                  ) : link.isExternal ? (
+                    <motion.a
+                      key={link.title}
+                      href={link.path}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2"
+                      whileHover={{ x: 5 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {link.title}
+                    </motion.a>
+                  ) : (
+                    <Link
+                      key={link.title}
+                      href={link.path}
+                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-2"
+                    >
+                      {link.title}
+                    </Link>
+                  )
+                ))}
+              </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </motion.nav>
   );
 } 

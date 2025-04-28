@@ -50,19 +50,19 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col`}
-      >
-        <ThemeProvider>
+    <ThemeProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col`}
+        >
           <Navbar />
           <main className="flex-grow pt-16">
             {children}
           </main>
           <Footer />
           <ScrollToTop />
-        </ThemeProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </ThemeProvider>
   );
 }

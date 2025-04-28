@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { FiCalendar, FiUser, FiTag, FiArrowRight } from 'react-icons/fi';
+import { FiCalendar, FiUser, FiTag, FiArrowRight, FiSearch } from 'react-icons/fi';
+import { motion } from 'framer-motion';
 
 // Sample blog posts data - in a real app, this would come from a database or API
 const blogPosts = [
@@ -14,6 +15,7 @@ const blogPosts = [
     author: 'John Doe',
     category: 'Web Development',
     image: '/images/blog/web-dev-trends.jpg',
+    readTime: '5 min read',
   },
   {
     id: 2,
@@ -23,6 +25,7 @@ const blogPosts = [
     author: 'Jane Smith',
     category: 'CSS',
     image: '/images/blog/css-grid.jpg',
+    readTime: '8 min read',
   },
   {
     id: 3,
@@ -32,6 +35,7 @@ const blogPosts = [
     author: 'John Doe',
     category: 'React',
     image: '/images/blog/react-performance.jpg',
+    readTime: '6 min read',
   },
   {
     id: 4,
@@ -41,45 +45,74 @@ const blogPosts = [
     author: 'Sarah Johnson',
     category: 'Accessibility',
     image: '/images/blog/accessibility.jpg',
+    readTime: '7 min read',
   },
 ];
 
 export default function BlogPage() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
   
   return (
-    <div className="py-24">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-24">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="mb-16 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Blog</h1>
-          <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-16 text-center"
+        >
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+            Blog
+          </h1>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-6 rounded-full" />
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             Insights, tutorials, and thoughts on web development, design, and technology.
           </p>
-        </div>
+        </motion.div>
+
+        {/* Search Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="max-w-2xl mx-auto mb-12"
+        >
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search articles..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full px-6 py-4 rounded-2xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-all duration-300"
+            />
+            <FiSearch className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" />
+          </div>
+        </motion.div>
 
         {/* Blog Posts */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogPosts.map((post) => (
-            <article
+          {blogPosts.map((post, index) => (
+            <motion.article
               key={post.id}
-              className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
             >
               {/* Post Image */}
-              <a href={`/blog/${post.id}`} target="_blank" rel="noopener noreferrer" className="block">
-                <div className="h-48 bg-gray-200 dark:bg-gray-700 relative">
-                  {/* Placeholder for actual image */}
-                  <div className="absolute inset-0 flex items-center justify-center text-gray-500 dark:text-gray-400">
-                    {post.category}
-                  </div>
+              <div className="relative h-48 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20 group-hover:opacity-0 transition-opacity duration-300" />
+                <div className="absolute inset-0 flex items-center justify-center text-gray-500 dark:text-gray-400 text-xl font-medium">
+                  {post.category}
                 </div>
-              </a>
+              </div>
               
               {/* Post Content */}
               <div className="p-6">
                 {/* Meta */}
-                <div className="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-gray-400 mb-3">
+                <div className="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-gray-400 mb-4">
                   <div className="flex items-center">
                     <FiCalendar className="mr-2" />
                     <span>{post.date}</span>
@@ -95,7 +128,7 @@ export default function BlogPage() {
                 </div>
                 
                 {/* Title */}
-                <h2 className="text-xl font-bold mb-3 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                <h2 className="text-xl font-bold mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                   <a href={`/blog/${post.id}`} target="_blank" rel="noopener noreferrer">
                     {post.title}
                   </a>
@@ -107,39 +140,60 @@ export default function BlogPage() {
                 </p>
                 
                 {/* Read More Link */}
-                <a 
+                <motion.a 
                   href={`/blog/${post.id}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center text-blue-600 dark:text-blue-400 font-medium hover:underline"
+                  whileHover={{ x: 5 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  Read More <FiArrowRight className="ml-2" />
-                </a>
+                  Read More <FiArrowRight className="ml-2 transition-transform group-hover:translate-x-1" />
+                </motion.a>
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
         
         {/* Pagination */}
-        <div className="flex justify-center mt-12">
-          <div className="inline-flex items-center gap-2">
-            <button 
-              className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors disabled:opacity-50"
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="flex justify-center mt-12"
+        >
+          <div className="inline-flex items-center gap-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-full p-2 shadow-lg">
+            <motion.button 
+              className="px-4 py-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors disabled:opacity-50"
               disabled
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               Previous
-            </button>
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+            </motion.button>
+            <motion.button 
+              className="px-4 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
               1
-            </button>
-            <button className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            </motion.button>
+            <motion.button 
+              className="px-4 py-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
               2
-            </button>
-            <button className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            </motion.button>
+            <motion.button 
+              className="px-4 py-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
               Next
-            </button>
+            </motion.button>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

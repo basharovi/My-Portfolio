@@ -3,7 +3,46 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FiCode, FiLayout, FiServer, FiDatabase, FiTool } from 'react-icons/fi';
+import { FiCode, FiLayout, FiServer, FiDatabase, FiTool, FiLayers, FiSmartphone, FiGlobe } from 'react-icons/fi';
+
+const skills = [
+  {
+    category: 'Frontend Development',
+    icon: <FiCode className="w-6 h-6" />,
+    skills: ['React', 'Next.js', 'Vue.js', 'TypeScript', 'Tailwind CSS', 'Sass'],
+    color: 'from-blue-500 to-blue-600',
+  },
+  {
+    category: 'Backend Development',
+    icon: <FiServer className="w-6 h-6" />,
+    skills: ['Node.js', 'Express', 'Python', 'Django', 'PHP', 'Laravel'],
+    color: 'from-purple-500 to-purple-600',
+  },
+  {
+    category: 'Database',
+    icon: <FiDatabase className="w-6 h-6" />,
+    skills: ['MongoDB', 'PostgreSQL', 'MySQL', 'Redis', 'Firebase'],
+    color: 'from-green-500 to-green-600',
+  },
+  {
+    category: 'UI/UX Design',
+    icon: <FiLayers className="w-6 h-6" />,
+    skills: ['Figma', 'Adobe XD', 'Sketch', 'Photoshop', 'Illustrator'],
+    color: 'from-pink-500 to-pink-600',
+  },
+  {
+    category: 'Mobile Development',
+    icon: <FiSmartphone className="w-6 h-6" />,
+    skills: ['React Native', 'Flutter', 'Swift', 'Kotlin'],
+    color: 'from-yellow-500 to-yellow-600',
+  },
+  {
+    category: 'DevOps & Cloud',
+    icon: <FiGlobe className="w-6 h-6" />,
+    skills: ['AWS', 'Docker', 'Kubernetes', 'CI/CD', 'Git'],
+    color: 'from-red-500 to-red-600',
+  },
+];
 
 export default function Skills() {
   const [activeTab, setActiveTab] = useState('frontend');
@@ -78,69 +117,86 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="py-20 bg-gray-50 dark:bg-gray-900">
-      <div className="container mx-auto px-4" ref={ref}>
-        <div className="flex flex-col items-center mb-12 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">My Skills</h2>
-            <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              A comprehensive overview of my technical skills and proficiency levels across different domains.
-            </p>
-          </motion.div>
-        </div>
+    <section id="skills" className="py-24 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+        <div className="absolute inset-0 bg-[url('/images/grid.svg')] opacity-10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-blue-500/5 dark:to-purple-500/5" />
+      </div>
 
-        {/* Skill Categories */}
-        <div className="flex flex-wrap justify-center gap-4 mb-10">
-          {skillCategories.map((category) => (
-            <motion.button
-              key={category.id}
-              onClick={() => setActiveTab(category.id)}
-              className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-colors ${
-                activeTab === category.id
-                ? 'bg-blue-600 dark:bg-blue-700 text-white'
-                : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
-              }`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.5, delay: 0.2 + skillCategories.indexOf(category) * 0.1 }}
-            >
-              <span className="text-current">{category.icon}</span>
-              {category.label}
-            </motion.button>
-          ))}
-        </div>
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+            Skills & Expertise
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-6 rounded-full" />
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            Here are the technologies and tools I work with to create amazing digital experiences.
+          </p>
+        </motion.div>
 
-        {/* Skills Progress Bars */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          {activeSkills.map((skill, index) => (
+        {/* Skills Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {skills.map((skill, index) => (
             <motion.div
-              key={skill.name}
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm"
+              key={skill.category}
               initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="group"
             >
-              <div className="flex justify-between mb-2">
-                <span className="font-medium text-gray-800 dark:text-gray-200">{skill.name}</span>
-                <span className="text-blue-600 dark:text-blue-400">{skill.level}%</span>
-              </div>
-              <div className="w-full h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
-                  variants={progressVariants}
-                  initial="hidden"
-                  animate={inView ? "visible" : "hidden"}
-                  custom={skill.level}
-                />
+              <div className="h-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+                {/* Category Header */}
+                <div className="flex items-center mb-6">
+                  <div className={`p-3 rounded-xl bg-gradient-to-br ${skill.color} text-white mr-4`}>
+                    {skill.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    {skill.category}
+                  </h3>
+                </div>
+
+                {/* Skills List */}
+                <ul className="space-y-3">
+                  {skill.skills.map((item) => (
+                    <motion.li
+                      key={item}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3 }}
+                      viewport={{ once: true }}
+                      className="flex items-center text-gray-600 dark:text-gray-400"
+                    >
+                      <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${skill.color} mr-3`} />
+                      {item}
+                    </motion.li>
+                  ))}
+                </ul>
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Additional Info */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          viewport={{ once: true }}
+          className="mt-16 text-center"
+        >
+          <p className="text-gray-600 dark:text-gray-400">
+            Always learning and exploring new technologies to stay at the forefront of web development.
+          </p>
+        </motion.div>
       </div>
     </section>
   );

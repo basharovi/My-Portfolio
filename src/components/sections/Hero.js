@@ -1,77 +1,143 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FiGithub, FiLinkedin, FiTwitter, FiMail } from 'react-icons/fi';
 import Image from 'next/image';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { FiArrowRight, FiDownload } from 'react-icons/fi';
+
+const roles = [
+  'Full Stack Developer',
+  'UI/UX Designer',
+  'Web Application Developer'
+];
 
 export default function Hero() {
+  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
+
+  useEffect(() => {
+    const roleInterval = setInterval(() => {
+      setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 3000);
+
+    return () => {
+      clearInterval(roleInterval);
+    };
+  }, []);
+
   return (
-    <section id="hero" className="relative py-20 md:py-32 overflow-hidden" aria-label="Hero section">
-      {/* Background decorations */}
-      <div className="absolute inset-0 -z-10" aria-hidden="true">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-200 dark:bg-blue-900/20 rounded-full blur-3xl opacity-20"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-200 dark:bg-purple-900/20 rounded-full blur-3xl opacity-20"></div>
+    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
+        <div className="absolute inset-0 bg-[url('/images/grid.svg')] opacity-10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-blue-500/5 dark:to-purple-500/5" />
       </div>
-      
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          {/* Text Content */}
+
+      {/* Content */}
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left Column - Text Content */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center lg:text-left"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-                Creative Developer
-              </span>
-              <br /> Crafting Digital Experiences
-            </h1>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600"
+            >
+              Hi, I'm <span className="text-gray-900 dark:text-white">Bashar Ovi</span>
+            </motion.h1>
             
-            <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-lg">
-              I design and build exceptional digital experiences that are 
-              modern, responsive, and delightful. Let's create something amazing together.
-            </p>
-            
-            <div className="flex flex-wrap gap-4">
-              <Link 
-                href="/contact"
-                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center gap-2"
-                aria-label="Get in touch"
-              >
-                Get in Touch <FiArrowRight aria-hidden="true" />
-              </Link>
-              
-              <a 
-                href="/docs/BasharOvi-Resume.pdf" 
-                className="px-6 py-3 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 rounded-lg transition-colors flex items-center gap-2"
-                download
-                aria-label="Download CV"
-              >
-                Download CV <FiDownload aria-hidden="true" />
-              </a>
+            <div className="h-16 overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.h2
+                  key={currentRoleIndex}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="text-2xl md:text-3xl font-semibold mb-6 text-gray-700 dark:text-gray-300"
+                >
+                  {roles[currentRoleIndex]}
+                </motion.h2>
+              </AnimatePresence>
             </div>
+            
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto lg:mx-0"
+            >
+              I create beautiful, functional, and user-friendly web applications with modern technologies and best practices.
+            </motion.p>
+            
+            {/* Social Links */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="flex justify-center lg:justify-start space-x-6"
+            >
+              <motion.a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                whileHover={{ scale: 1.1, y: -5 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <FiGithub className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+              </motion.a>
+              <motion.a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                whileHover={{ scale: 1.1, y: -5 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <FiLinkedin className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+              </motion.a>
+              <motion.a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                whileHover={{ scale: 1.1, y: -5 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <FiTwitter className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+              </motion.a>
+              <motion.a
+                href="mailto:contact@example.com"
+                className="p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                whileHover={{ scale: 1.1, y: -5 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <FiMail className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+              </motion.a>
+            </motion.div>
           </motion.div>
-          
-          {/* Image */}
+
+          {/* Right Column - Single Image */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
             className="relative"
           >
-            <div className="relative w-full aspect-square max-w-md mx-auto">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20 rounded-full blur-md" aria-hidden="true"></div>
-              <div className="absolute inset-6 bg-gray-100 dark:bg-gray-800 rounded-full" aria-hidden="true"></div>
-              <div className="absolute inset-8 overflow-hidden rounded-full">
-                {/* Actual profile image */}
+            <div className="relative w-full max-w-md mx-auto lg:mx-0">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl" />
+              <div className="relative aspect-square rounded-full overflow-hidden border-4 border-white/20 dark:border-gray-800/20">
                 <Image
                   src="/images/basharovi.jpg"
                   alt="Bashar Ovi"
                   fill
-                  sizes="(max-width: 768px) 100vw, 500px"
-                  style={{ objectFit: 'cover' }}
+                  className="object-cover"
                   priority
                 />
               </div>
@@ -79,6 +145,25 @@ export default function Hero() {
           </motion.div>
         </div>
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1 }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+      >
+        <div className="flex flex-col items-center">
+          <span className="text-sm text-gray-600 dark:text-gray-400 mb-2">Scroll Down</span>
+          <div className="w-6 h-10 border-2 border-gray-400 dark:border-gray-600 rounded-full flex justify-center p-2">
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="w-1 h-1 bg-gray-400 dark:bg-gray-600 rounded-full"
+            />
+          </div>
+        </div>
+      </motion.div>
     </section>
   );
 } 
