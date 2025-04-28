@@ -16,53 +16,77 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Professional Portfolio | Web Developer & Designer",
-  description: "A showcase of professional web development and design work, featuring projects, skills, and experiences. Available for collaboration and hiring.",
-  keywords: "web development, portfolio, react, next.js, designer, developer, frontend, UI/UX",
-  authors: [{ name: "Your Name", url: "https://yourportfolio.com" }],
-  creator: "Your Name",
-  publisher: "Your Name",
+  title: "Bashar Ovi | Senior Software Engineer",
+  description: "Professional portfolio of Muhammad Mominur Bashar Ovi, a passionate Software Engineer specialized in C# and .NET ecosystem, with experience in building scalable microservice architectures.",
+  keywords: "Bashar Ovi, software engineer, C#, .NET, full stack developer, microservices, portfolio",
+  authors: [{ name: "Bashar Ovi", url: "https://basharovi.vercel.app" }],
+  creator: "Muhammad Mominur Bashar Ovi",
+  publisher: "Bashar Ovi",
   robots: "index, follow",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://yourportfolio.com",
-    title: "Professional Portfolio | Web Developer & Designer",
-    description: "A showcase of professional web development and design work",
-    siteName: "Professional Portfolio",
+    url: "https://basharovi.vercel.app",
+    title: "Bashar Ovi | Senior Software Engineer",
+    description: "Professional portfolio of a passionate Software Engineer specialized in C# and .NET ecosystem",
+    siteName: "Bashar Ovi Portfolio",
     images: [
       {
-        url: "/images/og-image.jpg",
+        url: "/images/basharovi.jpg",
         width: 1200,
-        height: 630,
-        alt: "Professional Portfolio",
+        height: 1200,
+        alt: "Bashar Ovi",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Professional Portfolio | Web Developer & Designer",
-    description: "A showcase of professional web development and design work",
-    images: ["/images/twitter-image.jpg"],
-    creator: "@yourtwitter",
+    title: "Bashar Ovi | Senior Software Engineer",
+    description: "Professional portfolio of a passionate Software Engineer specialized in C# and .NET ecosystem",
+    images: ["/images/basharovi.jpg"],
+    creator: "@basharovi",
+  },
+  facebook: {
+    appId: "", // If you have a Facebook app ID
+    title: "Bashar Ovi | Senior Software Engineer",
+    description: "Professional portfolio of a passionate Software Engineer specialized in C# and .NET ecosystem",
+    images: ["/images/basharovi.jpg"],
+    url: "https://basharovi.vercel.app",
+  },
+  whatsapp: {
+    title: "Bashar Ovi | Senior Software Engineer",
+    description: "Professional portfolio of a passionate Software Engineer specialized in C# and .NET ecosystem",
+    image: "/images/basharovi.jpg",
+  },
+  alternates: {
+    canonical: "https://basharovi.vercel.app",
+  },
+  verification: {
+    google: "", // Your Google verification code if you have one
   },
 };
 
 export default function RootLayout({ children }) {
   return (
-    <ThemeProvider>
-      <html lang="en" suppressHydrationWarning>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col`}
-        >
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* WhatsApp preview metadata */}
+        <meta property="og:image" content="/images/basharovi.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="1200" />
+      </head>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col`}
+      >
+        <ThemeProvider>
           <Navbar />
           <main className="flex-grow pt-16">
             {children}
           </main>
           <Footer />
           <ScrollToTop />
-        </body>
-      </html>
-    </ThemeProvider>
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }

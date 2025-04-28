@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FiBriefcase } from 'react-icons/fi';
+import { FiBriefcase, FiExternalLink } from 'react-icons/fi';
 
 export default function Experience() {
   const { ref, inView } = useInView({
@@ -14,6 +14,7 @@ export default function Experience() {
     {
       title: 'Senior Software Engineer',
       company: 'Cantaloupe Inc.',
+      website: 'https://www.cantaloupe.com',
       period: '2025 - Present',
       description: [
       ],
@@ -21,6 +22,7 @@ export default function Experience() {
     {
       title: 'Software Engineer Level 2',
       company: 'Vivasoft Ltd.',
+      website: 'https://www.vivasoftltd.com',
       period: '2023 - 2024',
       description: [
       ],
@@ -28,6 +30,7 @@ export default function Experience() {
     {
       title: 'Software Engineer',
       company: 'Medianfon Tech',
+      website: 'https://mediafon.tech/',
       period: '2022 - 2023',
       description: [
       ],
@@ -35,6 +38,7 @@ export default function Experience() {
     {
       title: 'Software Engineer',
       company: 'S3 Innovate Pte Ltd.',
+      website: 'https://www.s3innovate.com',
       period: '2021 - 2022',
       description: [
       ],
@@ -42,6 +46,7 @@ export default function Experience() {
     {
       title: 'Jr. Software Engineer',
       company: 'Perky Rabbit LTD',
+      website: 'https://www.perkyrabbit.com',
       period: '2020 - 2021',
       description: [
       ],
@@ -97,7 +102,15 @@ export default function Experience() {
               <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
                 <h3 className="text-xl font-bold mb-1">{experience.title}</h3>
                 <div className="mb-4">
-                  <span className="text-blue-600 dark:text-blue-400 font-medium">{experience.company}</span>
+                  <a 
+                    href={experience.website} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-blue-600 dark:text-blue-400 font-medium hover:underline"
+                  >
+                    {experience.company}
+                    <FiExternalLink className="ml-1 h-4 w-4" />
+                  </a>
                   <span className="mx-2 text-gray-400">•</span>
                   <span className="text-gray-500 dark:text-gray-500">{experience.period}</span>
                 </div>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiGithub, FiLinkedin, FiFacebook, FiMail } from 'react-icons/fi';
+import { FiGithub, FiLinkedin, FiFacebook, FiMail, FiDownload } from 'react-icons/fi';
 import Image from 'next/image';
 
 const roles = [
@@ -74,6 +74,24 @@ export default function Hero() {
             >
               From a spark of curiosity to crafting powerful applications — my journey as a Software Engineer is fueled by passion, patience, and the joy of building meaningful software.
             </motion.p>
+            
+            {/* Download Resume Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              className="mb-8"
+            >
+              <a 
+                href="/docs/BasharOvi_Resume.pdf" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-5 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+              >
+                <FiDownload className="mr-2" />
+                View Resume
+              </a>
+            </motion.div>
             
             {/* Social Links */}
             <motion.div
