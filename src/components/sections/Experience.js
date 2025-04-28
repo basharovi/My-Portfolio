@@ -12,47 +12,38 @@ export default function Experience() {
 
   const experiences = [
     {
-      title: 'Senior Frontend Developer',
-      company: 'Tech Innovators Inc.',
-      period: '2021 - Present',
+      title: 'Senior Software Engineer',
+      company: 'Cantaloupe Inc.',
+      period: '2025 - Present',
       description: [
-        'Lead a team of 5 frontend developers in developing cutting-edge web applications',
-        'Implemented modern frontend architectures using React and Next.js',
-        'Reduced page load times by 60% through performance optimizations',
-        'Collaborated with UX/UI designers to implement intuitive user interfaces',
       ],
     },
     {
-      title: 'Frontend Developer',
-      company: 'Digital Solutions Ltd.',
-      period: '2018 - 2021',
+      title: 'Software Engineer Level 2',
+      company: 'Vivasoft Ltd.',
+      period: '2023 - 2024',
       description: [
-        'Developed responsive web applications using React.js and Redux',
-        'Worked closely with backend developers to integrate RESTful APIs',
-        'Implemented CI/CD pipelines to streamline deployment processes',
-        'Mentored junior developers and conducted code reviews',
       ],
     },
     {
-      title: 'Web Developer',
-      company: 'Creative Agency',
-      period: '2016 - 2018',
+      title: 'Software Engineer',
+      company: 'Medianfon Tech',
+      period: '2022 - 2023',
       description: [
-        'Created custom websites for clients across various industries',
-        'Developed mobile-responsive layouts using HTML, CSS, and JavaScript',
-        'Maintained and updated existing client websites',
-        'Collaborated with designers to implement pixel-perfect designs',
       ],
     },
     {
-      title: 'Junior Developer',
-      company: 'Startup Technologies',
-      period: '2015 - 2016',
+      title: 'Software Engineer',
+      company: 'S3 Innovate Pte Ltd.',
+      period: '2021 - 2022',
       description: [
-        'Assisted in developing interactive web applications',
-        'Learned and applied best practices in web development',
-        'Participated in agile development processes and daily stand-ups',
-        'Fixed bugs and implemented minor features',
+      ],
+    },
+    {
+      title: 'Jr. Software Engineer',
+      company: 'Perky Rabbit LTD',
+      period: '2020 - 2021',
+      description: [
       ],
     },
   ];
@@ -110,11 +101,13 @@ export default function Experience() {
                   <span className="mx-2 text-gray-400">•</span>
                   <span className="text-gray-500 dark:text-gray-500">{experience.period}</span>
                 </div>
-                <ul className={`text-gray-600 dark:text-gray-400 space-y-2 list-disc ${index % 2 === 0 ? 'md:list-inside' : 'ml-6'}`}>
-                  {experience.description.map((item, i) => (
-                    <li key={i}>{item}</li>
-                  ))}
-                </ul>
+                {experience.description.length > 0 && (
+                  <ul className={`text-gray-600 dark:text-gray-400 space-y-2 list-disc ${index % 2 === 0 ? 'md:list-inside' : 'ml-6'}`}>
+                    {experience.description.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </ul>
+                )}
               </div>
             </motion.div>
           ))}

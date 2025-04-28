@@ -3,118 +3,73 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FiCode, FiLayout, FiServer, FiDatabase, FiTool, FiLayers, FiSmartphone, FiGlobe } from 'react-icons/fi';
+import { FiSettings , FiCode, FiLayout, FiServer, FiDatabase, FiTool, FiLayers, FiCloud } from 'react-icons/fi';
 
 const skills = [
   {
-    category: 'Frontend Development',
+    category: 'Languages & Databases',
     icon: <FiCode className="w-6 h-6" />,
-    skills: ['React', 'Next.js', 'Vue.js', 'TypeScript', 'Tailwind CSS', 'Sass'],
+    skills: ['C#', 'JavaScript', 'TypeScript', 'MS SQL Server', 'PostgreSQL', 'Azure Cosmos DB'],
     color: 'from-blue-500 to-blue-600',
   },
   {
-    category: 'Backend Development',
+    category: 'Frameworks & Libraries',
     icon: <FiServer className="w-6 h-6" />,
-    skills: ['Node.js', 'Express', 'Python', 'Django', 'PHP', 'Laravel'],
+    skills: [
+      'ASP.NET Core MVC',
+      'ASP.NET Core Web API',
+      'WPF',
+      'Xamarin.Forms',
+      'Vue.js',
+      'Angular'
+    ],
     color: 'from-purple-500 to-purple-600',
   },
   {
-    category: 'Database',
-    icon: <FiDatabase className="w-6 h-6" />,
-    skills: ['MongoDB', 'PostgreSQL', 'MySQL', 'Redis', 'Firebase'],
-    color: 'from-green-500 to-green-600',
-  },
-  {
-    category: 'UI/UX Design',
+    category: 'Architecture & Patterns',
     icon: <FiLayers className="w-6 h-6" />,
-    skills: ['Figma', 'Adobe XD', 'Sketch', 'Photoshop', 'Illustrator'],
+    skills: [
+      'Layered Architecture',
+      'Clean Architecture',
+      'Microservice Architecture',
+      'Repository',
+      'Saga',
+      'Adapter',
+    ],
     color: 'from-pink-500 to-pink-600',
   },
   {
-    category: 'Mobile Development',
-    icon: <FiSmartphone className="w-6 h-6" />,
-    skills: ['React Native', 'Flutter', 'Swift', 'Kotlin'],
-    color: 'from-yellow-500 to-yellow-600',
+    category: 'Cloud Services',
+    icon: <FiCloud className="w-6 h-6" />,
+    skills: [
+      'Azure Table Storage',
+      'Azure File Share',
+      'Azure Functions',
+      'Azure Container Registry',
+      'Azure App Service',
+      'Azure Key Vault',
+      'Azure OneLake'
+    ],
+    color: 'from-cyan-500 to-cyan-600',
   },
   {
-    category: 'DevOps & Cloud',
-    icon: <FiGlobe className="w-6 h-6" />,
-    skills: ['AWS', 'Docker', 'Kubernetes', 'CI/CD', 'Git'],
-    color: 'from-red-500 to-red-600',
-  },
+    category: 'DevOps & Tools',
+    icon: <FiTool className="w-6 h-6" />,
+    skills: [
+      'Azure DevOps',
+      'MQTT Broker',
+      'Azure Data Studio',
+      'Syncfusion',
+      'Docker',
+      'Jira',
+      'Upsource',
+    ],
+    color: 'from-green-500 to-green-600',
+  }
 ];
 
+
 export default function Skills() {
-  const [activeTab, setActiveTab] = useState('frontend');
-  const { ref, inView } = useInView({
-    threshold: 0.1,
-    triggerOnce: true,
-  });
-
-  const skillCategories = [
-    {
-      id: 'frontend',
-      label: 'Frontend',
-      icon: <FiLayout size={24} />,
-      skills: [
-        { name: 'HTML/CSS', level: 95 },
-        { name: 'JavaScript', level: 90 },
-        { name: 'React.js', level: 85 },
-        { name: 'Next.js', level: 80 },
-        { name: 'Tailwind CSS', level: 90 },
-        { name: 'TypeScript', level: 75 },
-      ],
-    },
-    {
-      id: 'backend',
-      label: 'Backend',
-      icon: <FiServer size={24} />,
-      skills: [
-        { name: 'Node.js', level: 85 },
-        { name: 'Express.js', level: 80 },
-        { name: 'Python', level: 70 },
-        { name: 'Django', level: 65 },
-        { name: 'RESTful APIs', level: 85 },
-        { name: 'GraphQL', level: 70 },
-      ],
-    },
-    {
-      id: 'database',
-      label: 'Database',
-      icon: <FiDatabase size={24} />,
-      skills: [
-        { name: 'MongoDB', level: 80 },
-        { name: 'PostgreSQL', level: 75 },
-        { name: 'MySQL', level: 70 },
-        { name: 'Firebase', level: 85 },
-        { name: 'Redis', level: 60 },
-        { name: 'Supabase', level: 65 },
-      ],
-    },
-    {
-      id: 'tools',
-      label: 'Tools & Others',
-      icon: <FiTool size={24} />,
-      skills: [
-        { name: 'Git/GitHub', level: 90 },
-        { name: 'Docker', level: 70 },
-        { name: 'AWS', level: 65 },
-        { name: 'CI/CD', level: 75 },
-        { name: 'Figma', level: 80 },
-        { name: 'Responsive Design', level: 90 },
-      ],
-    },
-  ];
-
-  const activeSkills = skillCategories.find(cat => cat.id === activeTab)?.skills || [];
-
-  const progressVariants = {
-    hidden: { width: 0 },
-    visible: level => ({
-      width: `${level}%`,
-      transition: { duration: 0.8, ease: "easeOut" }
-    })
-  };
 
   return (
     <section id="skills" className="py-24 relative overflow-hidden">
@@ -184,19 +139,7 @@ export default function Skills() {
             </motion.div>
           ))}
         </div>
-
-        {/* Additional Info */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          viewport={{ once: true }}
-          className="mt-16 text-center"
-        >
-          <p className="text-gray-600 dark:text-gray-400">
-            Always learning and exploring new technologies to stay at the forefront of web development.
-          </p>
-        </motion.div>
+        
       </div>
     </section>
   );

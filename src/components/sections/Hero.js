@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiGithub, FiLinkedin, FiTwitter, FiMail } from 'react-icons/fi';
+import { FiGithub, FiLinkedin, FiFacebook, FiMail } from 'react-icons/fi';
 import Image from 'next/image';
 
 const roles = [
-  'Full Stack Developer',
-  'UI/UX Designer',
-  'Web Application Developer'
+  'Muslim Software Engineer',
+  'C# Lover | .NET Enthusiast',
+  'Problem Solver | Lifelong Learner',
 ];
 
 export default function Hero() {
@@ -48,7 +48,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600"
             >
-              Hi, I&apos;m <span className="text-gray-900 dark:text-white">Bashar Ovi</span>
+              Assalamu Alaikum, I&apos;m <span className="text-gray-900 dark:text-white">Bashar Ovi</span>
             </motion.h1>
             
             <div className="h-16 overflow-hidden">
@@ -72,7 +72,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto lg:mx-0"
             >
-              I create beautiful, functional, and user-friendly web applications with modern technologies and best practices.
+              From a spark of curiosity to crafting powerful applications — my journey as a Software Engineer is fueled by passion, patience, and the joy of building meaningful software.
             </motion.p>
             
             {/* Social Links */}
@@ -83,7 +83,7 @@ export default function Hero() {
               className="flex justify-center lg:justify-start space-x-6"
             >
               <motion.a
-                href="https://github.com"
+                href="https://github.com/basharovi"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg shadow-lg hover:shadow-xl transition-all duration-300"
@@ -93,7 +93,7 @@ export default function Hero() {
                 <FiGithub className="w-6 h-6 text-gray-700 dark:text-gray-300" />
               </motion.a>
               <motion.a
-                href="https://linkedin.com"
+                href="https://linkedin.com/in/basharovi"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg shadow-lg hover:shadow-xl transition-all duration-300"
@@ -103,17 +103,17 @@ export default function Hero() {
                 <FiLinkedin className="w-6 h-6 text-gray-700 dark:text-gray-300" />
               </motion.a>
               <motion.a
-                href="https://twitter.com"
+                href="https://facebook.com/basharovi.cse"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg shadow-lg hover:shadow-xl transition-all duration-300"
                 whileHover={{ scale: 1.1, y: -5 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <FiTwitter className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+                <FiFacebook className="w-6 h-6 text-gray-700 dark:text-gray-300" />
               </motion.a>
               <motion.a
-                href="mailto:contact@example.com"
+                href="mailto:bashar.ovi@outlook.com"
                 className="p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg shadow-lg hover:shadow-xl transition-all duration-300"
                 whileHover={{ scale: 1.1, y: -5 }}
                 whileTap={{ scale: 0.95 }}
@@ -130,9 +130,9 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="relative"
           >
-            <div className="relative w-full max-w-md mx-auto lg:mx-0">
+            <div className="relative w-full max-w-sm mx-auto lg:mx-0">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl" />
-              <div className="relative aspect-square rounded-full overflow-hidden border-4 border-white/20 dark:border-gray-800/20">
+              <div className="relative aspect-square rounded-full overflow-hidden border-4 border-white/20 dark:border-gray-600/20">
                 <Image
                   src="/images/basharovi.jpg"
                   alt="Bashar Ovi"

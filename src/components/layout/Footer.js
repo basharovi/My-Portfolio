@@ -2,8 +2,9 @@
 
 import Link from 'next/link';
 import { 
-  FiGithub, FiTwitter, FiLinkedin, FiInstagram, 
-  FiMail, FiPhone, FiMapPin 
+  FiGithub, FiLinkedin, 
+  FiMail, FiPhone, FiMapPin, 
+  FiFacebook
 } from 'react-icons/fi';
 
 export default function Footer() {
@@ -12,44 +13,39 @@ export default function Footer() {
   const socialLinks = [
     { 
       name: 'GitHub', 
-      url: 'https://github.com/yourusername', 
+      url: 'https://github.com/basharovi', 
       icon: <FiGithub aria-hidden="true" /> 
     },
     { 
-      name: 'Twitter', 
-      url: 'https://twitter.com/yourusername', 
-      icon: <FiTwitter aria-hidden="true" /> 
+      name: 'Facebook', 
+      url: 'https://facebook.com/basharovi.cse', 
+      icon: <FiFacebook aria-hidden="true" /> 
     },
     { 
       name: 'LinkedIn', 
-      url: 'https://linkedin.com/in/yourusername', 
+      url: 'https://linkedin.com/in/basharovi', 
       icon: <FiLinkedin aria-hidden="true" /> 
-    },
-    { 
-      name: 'Instagram', 
-      url: 'https://instagram.com/yourusername', 
-      icon: <FiInstagram aria-hidden="true" /> 
-    },
+    }
   ];
 
   const contactInfo = [
     { 
       title: 'Email',
-      value: 'your.email@example.com',
+      value: 'bashar.ovi@outlook.com',
       icon: <FiMail aria-hidden="true" className="mr-2" />,
       href: 'mailto:your.email@example.com'
     },
     { 
       title: 'Phone',
-      value: '+1 234 567 890',
+      value: '+88 01750 844104',
       icon: <FiPhone aria-hidden="true" className="mr-2" />,
       href: 'tel:+1234567890'
     },
     { 
       title: 'Address',
-      value: 'New York, NY, USA',
+      value: 'Dhaka, Bangladesh',
       icon: <FiMapPin aria-hidden="true" className="mr-2" />,
-      href: 'https://maps.google.com/?q=New+York,+NY,+USA'
+      href: 'https://www.google.com/maps/place/Dhaka,+Bangladesh'
     },
   ];
 
@@ -61,7 +57,8 @@ export default function Footer() {
           <div>
             <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">About</h2>
             <p className="text-gray-600 dark:text-gray-400 mb-4">
-              A passionate developer dedicated to creating beautiful, functional, and accessible web experiences.
+            Passionate muslim software engineer with a keen eye for design and a commitment to creating
+            exceptional digital experiences that make a difference.
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((link) => (
@@ -152,7 +149,7 @@ export default function Footer() {
         
         {/* Copyright */}
         <div className="border-t border-gray-200 dark:border-gray-800 pt-8 text-center text-gray-600 dark:text-gray-400">
-          <p>&copy; {currentYear} Your Name. All rights reserved.</p>
+          <p>&copy; {currentYear} Bashar Ovi. All rights reserved.</p>
         </div>
       </div>
     </footer>

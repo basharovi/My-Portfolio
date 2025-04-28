@@ -12,39 +12,33 @@ export default function Education() {
 
   const educationItems = [
     {
-      degree: 'Master of Science in Computer Science',
-      institution: 'University of Technology',
-      location: 'San Francisco, CA',
-      period: '2013 - 2015',
-      description: 'Specialized in Human-Computer Interaction and Web Technologies. Graduated with honors and recognition for innovative thesis work.',
-      achievements: [
-        'GPA: 3.9/4.0',
-        'Best Thesis Award',
-        'Published 2 research papers',
+      degree: 'Bachelor of Science (B.Sc) in Computer Science & Engineering',
+      institution: 'Dhaka International University',
+      location: 'Dhaka, Bangladesh',
+      period: '2017 - 2021',
+      description: 'Focused on software engineering and computer science core subjects. Participated in multiple coding competitions online and offline.',
+      activities: [
+        'Former Vice President of DIU Computer Programming Club.',
+        'Volunteer of DIu English Language Club',
+        'Organizer of DIU IT Carnival 2020.',
       ],
     },
     {
-      degree: 'Bachelor of Science in Computer Science',
-      institution: 'State University',
-      location: 'Chicago, IL',
-      period: '2009 - 2013',
-      description: 'Focused on software engineering and web development. Participated in multiple hackathons and coding competitions.',
-      achievements: [
-        'Dean\'s List: 6 semesters',
-        'President of CS Student Association',
-        'Winner of University Coding Challenge',
+      degree: 'Higher Secondary Certificate (HSC)',
+      institution: 'Gobindagonj S.S College',
+      location: 'Gobindagonj, Gaibandha',
+      period: '2014 - 2016',
+      description: '',
+      activities: [
       ],
     },
     {
-      degree: 'Web Development Certification',
-      institution: 'Tech Academy',
-      location: 'Online',
-      period: '2012',
-      description: 'Intensive course covering advanced web development techniques, responsive design, and modern JavaScript frameworks.',
-      achievements: [
-        'Completed with Distinction',
-        'Built 5 production-level projects',
-        'Mentored junior students',
+      degree: 'Secondary School Certificate (SSC)',
+      institution: 'Gobindagonj Govt. High School',
+      location: 'Gobindagonj, Gaibandha',
+      period: '2009 - 2014',
+      description: '',
+      activities: [
       ],
     },
   ];
@@ -58,10 +52,10 @@ export default function Education() {
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Education & Certifications</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Education Background</h2>
             <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
             <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              My academic journey and professional certifications that have built my foundation in technology and design.
+              My academic journey that have built my foundation in technology and programming.
             </p>
           </motion.div>
         </div>
@@ -102,17 +96,17 @@ export default function Education() {
                     {item.description}
                   </p>
                   
-                  {/* Achievements */}
+                  {/* Activities */}
                   <div className="mt-4">
                     <h4 className="text-lg font-semibold mb-2 flex items-center">
                       <FiAward className="mr-2 text-blue-600 dark:text-blue-400" />
-                      Achievements
+                      Activities
                     </h4>
                     <ul className="space-y-2 text-gray-600 dark:text-gray-400">
-                      {item.achievements.map((achievement, i) => (
+                      {item.activities.map((activity, i) => (
                         <li key={i} className="flex items-start">
                           <span className="mr-2">•</span>
-                          <span>{achievement}</span>
+                          <span>{activity}</span>
                         </li>
                       ))}
                     </ul>

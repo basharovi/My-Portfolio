@@ -2,7 +2,7 @@
 
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
-import { FiUser, FiAward, FiCode, FiCoffee } from 'react-icons/fi';
+import { useEffect, useState } from 'react';
 
 export default function About() {
   const { ref, inView } = useInView({
@@ -10,12 +10,53 @@ export default function About() {
     triggerOnce: true,
   });
 
-  const stats = [
-    { icon: <FiUser />, label: 'Clients', value: '50+' },
-    { icon: <FiAward />, label: 'Awards', value: '10+' },
-    { icon: <FiCode />, label: 'Projects', value: '100+' },
-    { icon: <FiCoffee />, label: 'Coffee Cups', value: '∞' },
+  const [typedParagraphs, setTypedParagraphs] = useState([]);
+  const [currentParagraphIndex, setCurrentParagraphIndex] = useState(0);
+  const [currentText, setCurrentText] = useState('');
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
+
+  const paragraphs = [
+    "Assalamu Alaikum, I'm Muhammad Mominur Bashar Ovi — a passionate Muslim Software Engineer who believes that great code is an art form. My journey into the world of software began almost 5 years ago, fueled by a love for solving problems and a deep curiosity about how things work behind the scenes.",
+    "Specializing in C# and the .NET ecosystem, I have built everything from simple systems to complex, scalable microservice architectures. Every line of code I write reflects a commitment to clarity, maintainability, and performance — principles I value deeply.",
+    "What sets me apart is not just technical skill, but the mindset of a lifelong learner. I embrace challenges with patience, quickly adapt to new technologies, and stay up-to-date with the latest innovations to keep pushing my limits.",
+    "Working with international clients has sharpened my communication and teamwork skills, making collaboration across cultures a natural part of my workflow. For me, building software isn't just about delivering a solution — it's about crafting something that truly makes a difference.",
+    "When I'm not immersed in coding, you'll find me exploring new design ideas, contributing to open-source communities, or simply recharging outdoors — keeping a healthy balance between work and life.",
+    "Every project I take on is more than just work — it's a new adventure. And this journey? It's only just beginning."
   ];
+
+  useEffect(() => {
+    if (!inView || currentParagraphIndex >= paragraphs.length) return;
+
+    let timeout;
+    let charIndex = 0;
+    const currentParagraph = paragraphs[currentParagraphIndex];
+    
+    const typeNextChar = () => {
+      if (charIndex <= currentParagraph.length) {
+        setCurrentText(currentParagraph.substring(0, charIndex));
+        charIndex++;
+        timeout = setTimeout(typeNextChar, 30); // Adjust typing speed here
+      } else {
+        // Current paragraph is complete
+        // Add it to the list of completed paragraphs
+        setTypedParagraphs(prev => [...prev, currentParagraph]);
+        setCurrentText('');
+        
+        // Move to next paragraph after a delay
+        if (currentParagraphIndex < paragraphs.length - 1) {
+          timeout = setTimeout(() => {
+            setCurrentParagraphIndex(prev => prev + 1);
+          }, 500);
+        } else {
+          setIsTypingComplete(true);
+        }
+      }
+    };
+
+    typeNextChar();
+
+    return () => clearTimeout(timeout);
+  }, [inView, currentParagraphIndex]);
 
   return (
     <section id="about" className="py-20 bg-white dark:bg-gray-900">
@@ -30,55 +71,36 @@ export default function About() {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">About Me</h2>
             <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
             <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Passionate web developer with a keen eye for design and a commitment to creating
+              Passionate muslim software engineer with a keen eye for design and a commitment to creating
               exceptional digital experiences that make a difference.
             </p>
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          {/* Bio */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <h3 className="text-2xl font-bold mb-4">My Journey</h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
-              I started my journey as a web developer over 5 years ago. Since then, I&apos;ve worked on a wide range of projects, 
-              from simple landing pages to complex applications. I specialize in creating responsive, user-friendly websites
-              and applications that not only look great but also provide exceptional user experiences.
-            </p>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
-              My approach combines creative design with clean, efficient code to deliver solutions that exceed expectations. 
-              I&apos;m constantly learning and staying updated with the latest technologies and best practices in the field.
-            </p>
-            <p className="text-gray-600 dark:text-gray-400">
-              When I&apos;m not coding, you can find me exploring new design trends, contributing to open-source projects, 
-              or enjoying outdoor activities to maintain a healthy work-life balance.
-            </p>
-          </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="grid grid-cols-2 gap-6"
-          >
-            {stats.map((stat, index) => (
-              <div 
-                key={index} 
-                className="flex flex-col items-center p-6 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-              >
-                <div className="text-blue-600 dark:text-blue-400 text-3xl mb-2">
-                  {stat.icon}
-                </div>
-                <span className="text-3xl font-bold mb-1">{stat.value}</span>
-                <span className="text-gray-600 dark:text-gray-400">{stat.label}</span>
-              </div>
-            ))}
-          </motion.div>
+        <div className="max-w-3xl mx-auto">
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-8 shadow-lg">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="prose prose-lg dark:prose-invert max-w-none"
+            >
+              {/* Display completed paragraphs */}
+              {typedParagraphs.map((paragraph, index) => (
+                <p key={index} className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+                  {paragraph}
+                </p>
+              ))}
+              
+              {/* Currently typing paragraph */}
+              {!isTypingComplete && (
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                  {currentText}
+                  <span className="animate-pulse ml-0.5 inline-block h-5 w-0.5 bg-blue-500 dark:bg-blue-400"></span>
+                </p>
+              )}
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
