@@ -12,11 +12,11 @@ const navLinks = [
   { title: 'Home', path: '/', isSection: true, sectionId: 'hero' },
   { title: 'Experience', path: '/experience', isSection: true, sectionId: 'experience' },
   { title: 'Skills', path: '/skills', isSection: true, sectionId: 'skills' },
-  { title: 'Portfolio', path: '/portfolio', isSection: true, sectionId: 'portfolio' },
+  // { title: 'Portfolio', path: '/portfolio', isSection: true, sectionId: 'portfolio' },
   { title: 'Education', path: '/education', isSection: true, sectionId: 'education' },
-  { title: 'Gallery', path: '/gallery', isSection: true, sectionId: 'gallery' },
+  // { title: 'Gallery', path: '/gallery', isSection: true, sectionId: 'gallery' },
+  // { title: 'Blog', path: '/blog', isSection: false, isExternal: true },
   { title: 'Contact', path: '/contact', isSection: true, sectionId: 'contact' },
-  { title: 'Blog', path: '/blog', isSection: false, isExternal: true }
 ];
 
 export default function Navbar() {

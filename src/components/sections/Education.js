@@ -97,20 +97,22 @@ export default function Education() {
                   </p>
                   
                   {/* Activities */}
-                  <div className="mt-4">
-                    <h4 className="text-lg font-semibold mb-2 flex items-center">
-                      <FiAward className="mr-2 text-blue-600 dark:text-blue-400" />
-                      Activities
-                    </h4>
-                    <ul className="space-y-2 text-gray-600 dark:text-gray-400">
-                      {item.activities.map((activity, i) => (
-                        <li key={i} className="flex items-start">
-                          <span className="mr-2">•</span>
-                          <span>{activity}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  {item.activities.length > 0 && (
+                    <div className="mt-4">
+                      <h4 className="text-lg font-semibold mb-2 flex items-center">
+                        <FiAward className="mr-2 text-blue-600 dark:text-blue-400" />
+                        Activities
+                      </h4>
+                      <ul className="space-y-2 text-gray-600 dark:text-gray-400">
+                        {item.activities.map((activity, i) => (
+                          <li key={i} className="flex items-start">
+                            <span className="mr-2">•</span>
+                            <span>{activity}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               </div>
             </motion.div>
