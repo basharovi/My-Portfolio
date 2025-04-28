@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Bashar Ovi | Senior Software Engineer",
-  description: "Professional portfolio of Muhammad Mominur Bashar Ovi, a passionate Software Engineer specialized in C# and .NET ecosystem, with experience in building scalable microservice architectures.",
+  title: "Bashar Ovi | Software Engineer",
+  description: "Professional portfolio of Bashar Ovi, a passionate muslim Software Engineer specialized in C# and .NET ecosystem, with experience in building scalable microservice architectures.",
   keywords: "Bashar Ovi, software engineer, C#, .NET, full stack developer, microservices, portfolio",
   authors: [{ name: "Bashar Ovi", url: "https://basharovi.vercel.app" }],
   creator: "Muhammad Mominur Bashar Ovi",
