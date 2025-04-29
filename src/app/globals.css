@@ -110,9 +110,94 @@ p {
   }
 }
 
+/* Improve Markdown (prose) typography */
+.prose {
+  font-family: var(--font-geist-sans), 'Segoe UI', 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--paragraph);
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+  font-family: var(--font-geist-sans), 'Segoe UI', 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  font-weight: 700;
+  color: var(--heading);
+  letter-spacing: -0.01em;
+}
+
+.prose p {
+  font-family: var(--font-geist-sans), 'Segoe UI', 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  font-size: 1.08rem;
+  font-weight: 400;
+  color: var(--paragraph);
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  line-height: 1.8;
+}
+
+.prose strong {
+  font-weight: 600;
+}
+
+.prose em {
+  font-style: italic;
+}
+
+.prose ul, .prose ol {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  padding-left: 1.5em;
+}
+
+.prose li {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose blockquote {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding-left: 1em;
+  border-left: 4px solid #e5e7eb;
+  color: #6b7280;
+  font-style: italic;
+}
+
 .prose img { 
   box-shadow: 0 2px 8px rgba(0,0,0,0.08); 
   margin: 1.5rem 0; 
   max-width: 100%; 
   height: auto; 
+}
+
+.prose p {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  line-height: 1.8;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+  margin-top: 2em;
+  margin-bottom: 1em;
+  line-height: 1.3;
+}
+
+.prose ul, .prose ol {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  padding-left: 1.5em;
+}
+
+.prose li {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose blockquote {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding-left: 1em;
+  border-left: 4px solid #e5e7eb;
+  color: #6b7280;
+  font-style: italic;
 }

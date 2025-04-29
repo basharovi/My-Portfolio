@@ -28,8 +28,8 @@ export default async function Post({ params }) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-24 pt-32">
-      <div className="container mx-auto px-4 max-w-3xl">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-10 pt-16">
+      <div className="container mx-auto px-2 max-w-4xl">
         {/* Back Button */}
         <Link 
           href="/blog"
@@ -39,7 +39,7 @@ export default async function Post({ params }) {
           Back to Blog
         </Link>
         
-        <article className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-lg p-6 md:p-10">
+        <article className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-lg p-4 md:p-6">
           {/* Post Header */}
           <header className="mb-8 border-b border-gray-200 dark:border-gray-700 pb-6">
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">

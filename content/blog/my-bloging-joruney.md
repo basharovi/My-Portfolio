@@ -1,15 +1,13 @@
 ---
-title: "My Blogging Journey Begins"
+title: "My Blogging Journey Begins: A Long-Awaited Start"
 date: "2025-04-29"
 author: "Bashar Ovi"
 excerpt: "For a long time, I’ve carried a quiet desire in my heart — to write."
 # related: ["second-post", "third-post"]
-thumbnail: "/images/blog/blogging-journey-thumbnail.png"
+thumbnail: "/images/blog/My_Blogging_Journey/thumbnail.png"
 ---
 
-# My Blogging Journey Begins: A Long-Awaited Start
-
-![Cover Image](/images/blog/blogging-journey.png)
+![Cover Image](/images/blog/My_Blogging_Journey/cover.png)
 
 For a long time, I’ve carried a quiet desire in my heart — to write.
 

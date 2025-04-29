@@ -7,7 +7,7 @@ export default async function BlogPage() {
   const allPostsData = getSortedPostsData();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-24 pt-32">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-10 pt-8">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="mb-16 text-center">
@@ -16,7 +16,7 @@ export default async function BlogPage() {
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-6 rounded-full" />
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Insights, tutorials, and thoughts on web development, design, and technology.
+          Not just the kind of writing that ends in ticket closures or API documentation, but writing that tells a story. Writing that captures a moment, a realization, a lesson learned through lines of code and nights of debugging.
           </p>
         </div>
 
