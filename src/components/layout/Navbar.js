@@ -15,7 +15,7 @@ const navLinks = [
   // { title: 'Portfolio', path: '/portfolio', isSection: true, sectionId: 'portfolio' },
   { title: 'Education', path: '/education', isSection: true, sectionId: 'education' },
   // { title: 'Gallery', path: '/gallery', isSection: true, sectionId: 'gallery' },
-  // { title: 'Blog', path: '/blog', isSection: false, isExternal: true },
+  { title: 'Blog', path: '/blog', isSection: false, isExternal: false },
   { title: 'Contact', path: '/contact', isSection: true, sectionId: 'contact' },
 ];
 
