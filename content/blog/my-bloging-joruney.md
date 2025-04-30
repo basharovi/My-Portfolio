@@ -5,6 +5,7 @@ author: "Bashar Ovi"
 excerpt: "For a long time, I’ve carried a quiet desire in my heart — to write."
 # related: ["second-post", "third-post"]
 thumbnail: "/images/blog/My_Blogging_Journey/thumbnail.png"
+keywords: "nextjs, seo, metadata, blog"
 ---
 
 ![Cover Image](/images/blog/My_Blogging_Journey/cover.png)

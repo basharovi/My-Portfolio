@@ -10,7 +10,9 @@ export async function generateStaticParams() {
 
 // This function fetches the data for a specific post
 async function getPost(params) {
-  const postData = await getPostData(params.id);
+  // Check if params is an object with id property or if it's the id string directly
+  const id = params?.id || params;
+  const postData = await getPostData(id);
   return postData;
 }
 
@@ -101,8 +103,51 @@ export default async function Post({ params }) {
 // Optional: Add metadata generation for SEO
 export async function generateMetadata({ params }) {
   const postData = await getPost(params);
+  
+  // Use excerpt or generate a default description if excerpt is missing
+  const description = postData.excerpt || `Read the blog post titled "${postData.title}" by ${postData.author || 'Bashar Ovi'}.`;
+  
+  // Construct the canonical URL for the post
+  const url = `https://basharovi.vercel.app/blog/${params.id}`; // Replace with your actual domain if different
+  
+  // Use thumbnail or a default image if thumbnail is missing
+  const imageUrl = postData.thumbnail ? `https://basharovi.vercel.app${postData.thumbnail}` : '/images/basharovi.jpg'; // Ensure thumbnail path is absolute or provide a default
+
   return {
-    title: postData.title,
-    description: postData.excerpt || `Read the blog post titled "${postData.title}"`,
+    title: `${postData.title} | Bashar Ovi's Blog`,
+    description: description,
+    authors: postData.author ? [{ name: postData.author }] : [{ name: "Bashar Ovi" }],
+    keywords: postData.keywords || "blog, software engineering, C#, .NET", // Add keywords from frontmatter if available
+    
+    openGraph: {
+      title: postData.title,
+      description: description,
+      url: url,
+      siteName: `Bashar Ovi's Blog`,
+      images: [
+        {
+          url: imageUrl, // Use the post's thumbnail or a default
+          width: 1200, // Adjust if your images have different dimensions
+          height: 630, // Standard OG image aspect ratio
+          alt: postData.title,
+        },
+      ],
+      locale: 'en_US',
+      type: 'article', // More specific type for blog posts
+      publishedTime: postData.date, // Add the publication date
+      authors: postData.author ? [postData.author] : ["Bashar Ovi"],
+    },
+    
+    twitter: {
+      card: 'summary_large_image',
+      title: postData.title,
+      description: description,
+      images: [imageUrl], // Use the same image URL
+      creator: '@basharovi', // Your Twitter handle
+    },
+    
+    alternates: {
+      canonical: url,
+    },
   };
 }
