@@ -108,16 +108,19 @@ export async function generateMetadata({ params }) {
   const description = postData.excerpt || `Read the blog post titled "${postData.title}" by ${postData.author || 'Bashar Ovi'}.`;
   
   // Construct the canonical URL for the post
-  const url = `https://basharovi.vercel.app/blog/${params.id}`; // Replace with your actual domain if different
+  const url = `https://basharovi.vercel.app/blog/${params?.id}`; // Fixed potential undefined issue
   
   // Use thumbnail or a default image if thumbnail is missing
-  const imageUrl = postData.thumbnail ? `https://basharovi.vercel.app${postData.thumbnail}` : '/images/basharovi.jpg'; // Ensure thumbnail path is absolute or provide a default
+  // LinkedIn requires absolute URLs for images
+  const imageUrl = postData.thumbnail 
+    ? `https://basharovi.vercel.app${postData.thumbnail}` 
+    : `https://basharovi.vercel.app/images/basharovi.jpg`; 
 
   return {
     title: `${postData.title} | Bashar Ovi's Blog`,
     description: description,
     authors: postData.author ? [{ name: postData.author }] : [{ name: "Bashar Ovi" }],
-    keywords: postData.keywords || "blog, software engineering, C#, .NET", // Add keywords from frontmatter if available
+    keywords: postData.keywords || "blog, software engineering, C#, .NET",
     
     openGraph: {
       title: postData.title,
@@ -126,28 +129,43 @@ export async function generateMetadata({ params }) {
       siteName: `Bashar Ovi's Blog`,
       images: [
         {
-          url: imageUrl, // Use the post's thumbnail or a default
-          width: 1200, // Adjust if your images have different dimensions
-          height: 630, // Standard OG image aspect ratio
+          url: imageUrl,
+          width: 1200,
+          height: 630,
           alt: postData.title,
+          type: "image/jpg", // Add explicit image type for LinkedIn
         },
       ],
       locale: 'en_US',
-      type: 'article', // More specific type for blog posts
-      publishedTime: postData.date, // Add the publication date
+      type: 'article',
+      publishedTime: postData.date,
       authors: postData.author ? [postData.author] : ["Bashar Ovi"],
+      // Add these LinkedIn-specific properties
+      "article:published_time": postData.date,
+      "article:author": postData.author || "Bashar Ovi",
     },
     
+    // Keep twitter metadata if needed
     twitter: {
       card: 'summary_large_image',
       title: postData.title,
       description: description,
-      images: [imageUrl], // Use the same image URL
-      creator: '@basharovi', // Your Twitter handle
+      images: [imageUrl],
+      creator: '@basharovi',
     },
     
     alternates: {
       canonical: url,
     },
+    
+    // Add these specific meta tags that LinkedIn sometimes looks for
+    other: {
+      'og:title': postData.title,
+      'og:description': description,
+      'og:image': imageUrl,
+      'og:url': url,
+      'og:type': 'article',
+      'og:site_name': `Bashar Ovi's Blog`,
+    }
   };
 }
