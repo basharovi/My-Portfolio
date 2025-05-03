@@ -1,6 +1,6 @@
 ---
 title: "আমরা কী নিজেরা ভাবছি, নাকি AI-ই সব ভেবে দিচ্ছে? একজন তরুণ ডেভেলপারের গল্প"
-date: "2025-05-03"
+date: "2025-05-01"
 author: "Bashar Ovi"
 excerpt: "AI আমাদের কাজ সহজ করছে, কিন্তু শেখার ইচ্ছাটা কি কোথাও থেমে যাচ্ছে?"
 thumbnail: "/images/blog/story-of-rafy-with-ai/thumbnail.png"
@@ -81,4 +81,4 @@ AI যেন তার কাজের সহকারী নয়,
 ---
 
 **Bashar Ovi**  
-*Software Engineer | AI Enthusiast | Reflective Thinker*
+*Software Engineer | Learner | Reflective Thinker*
