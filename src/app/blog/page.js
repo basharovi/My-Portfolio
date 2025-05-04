@@ -4,7 +4,7 @@ import { getSortedPostsData } from '@/lib/posts';
 
 export default async function BlogPage() {
   // Fetch data directly in the Server Component
-  const allPostsData = getSortedPostsData();
+  const allPostsData = await getSortedPostsData();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-10 pt-8">
@@ -54,11 +54,13 @@ export default async function BlogPage() {
                         <span>{author}</span>
                       </div>
                     )}
-                    {/* View Counter */}
-                    <div className="flex items-center">
-                      <FiEye className="mr-2 flex-shrink-0" />
-                      <span>{views || 0} views</span>
-                    </div>
+                    {/* View Counter - only show when view data is available */}
+                    {views !== null && (
+                      <div className="flex items-center">
+                        <FiEye className="mr-2 flex-shrink-0" />
+                        <span>{views} views</span>
+                      </div>
+                    )}
                   </div>
 
                   {/* Title */}

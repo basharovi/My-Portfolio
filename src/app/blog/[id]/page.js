@@ -12,8 +12,16 @@ export async function generateStaticParams() {
 // Server action to increment view counter
 async function incrementViews(id) {
   'use server';
-  incrementPostViews(id);
-  revalidatePath(`/blog/${id}`);
+  try {
+    // Add timeout to prevent hanging
+    const incrementPromise = incrementPostViews(id);
+    const timeoutPromise = new Promise((resolve) => setTimeout(() => resolve(null), 5000));
+    await Promise.race([incrementPromise, timeoutPromise]);
+    revalidatePath(`/blog/${id}`);
+  } catch (error) {
+    console.error(`Server action error incrementing views for ${id}:`, error);
+    // Continue despite errors
+  }
 }
 
 // This function fetches the data for a specific post
@@ -25,7 +33,15 @@ async function getPost(params) {
   // Increment view count server-side (only once)
   // This will run only on initial page load, not on metadata generation
   if (params?.incrementView !== false) {
-    incrementPostViews(id);
+    try {
+      // Add timeout to prevent hanging
+      const incrementPromise = incrementPostViews(id);
+      const timeoutPromise = new Promise((resolve) => setTimeout(() => resolve(null), 5000));
+      await Promise.race([incrementPromise, timeoutPromise]);
+    } catch (error) {
+      console.error(`Error incrementing views for ${id}:`, error);
+      // Continue despite view count error
+    }
   }
   
   return postData;
@@ -38,10 +54,19 @@ export default async function Post({ params }) {
   // Fetch all posts to find related ones if needed
   let relatedPosts = [];
   if (postData.related && Array.isArray(postData.related) && postData.related.length > 0) {
-    const allPosts = getSortedPostsData();
-    relatedPosts = allPosts.filter(
-      (post) => postData.related.includes(post.id) && post.id !== postData.id
-    );
+    try {
+      // Add timeout to prevent hanging
+      const postsPromise = getSortedPostsData();
+      const timeoutPromise = new Promise((resolve) => setTimeout(() => resolve([]), 5000));
+      const allPosts = await Promise.race([postsPromise, timeoutPromise]);
+      
+      relatedPosts = allPosts.filter(
+        (post) => postData.related.includes(post.id) && post.id !== postData.id
+      );
+    } catch (error) {
+      console.error('Error fetching related posts:', error);
+      // Continue with empty related posts
+    }
   }
 
   return (
@@ -75,11 +100,13 @@ export default async function Post({ params }) {
                   <span>By {postData.author}</span>
                 </div>
               )}
-              {/* View Counter */}
-              <div className="flex items-center">
-                <FiEye className="mr-2 flex-shrink-0 animate-pulse" />
-                <span>{postData.views} views</span>
-              </div>
+              {/* View Counter - only show when view data is available */}
+              {postData.views !== null && (
+                <div className="flex items-center">
+                  <FiEye className="mr-2 flex-shrink-0 animate-pulse" />
+                  <span>{postData.views} views</span>
+                </div>
+              )}
             </div>
           </header>
 
@@ -122,71 +149,97 @@ export default async function Post({ params }) {
 
 // Optional: Add metadata generation for SEO
 export async function generateMetadata({ params }) {
-  // Pass flag to avoid incrementing view count during metadata generation
-  const postData = await getPost({ ...params, incrementView: false });
-  
-  // Use excerpt or generate a default description if excerpt is missing
-  const description = postData.excerpt || `Read the blog post titled "${postData.title}" by ${postData.author || 'Bashar Ovi'}.`;
-  
-  // Construct the canonical URL for the post
-  const url = `https://basharovi.vercel.app/blog/${params?.id}`; // Fixed potential undefined issue
-  
-  // Use thumbnail or a default image if thumbnail is missing
-  // LinkedIn requires absolute URLs for images
-  const imageUrl = postData.thumbnail 
-    ? `https://basharovi.vercel.app${postData.thumbnail}` 
-    : `https://basharovi.vercel.app/images/blog-thumbnail.jpg`; 
-
-  return {
-    title: `${postData.title} | Bashar Ovi's Blog`,
-    description: description,
-    authors: postData.author ? [{ name: postData.author }] : [{ name: "Bashar Ovi" }],
-    keywords: postData.keywords || "blog, software engineering, C#, .NET",
+  try {
+    // Add timeout to prevent hanging
+    const postPromise = getPost({ ...params, incrementView: false });
+    const timeoutPromise = new Promise((resolve) => 
+      setTimeout(() => resolve({
+        title: "Blog Post",
+        description: "Loading blog post..."
+      }), 5000)
+    );
     
-    openGraph: {
-      title: postData.title,
-      description: description,
-      url: url,
-      siteName: `Bashar Ovi's Blog`,
-      images: [
-        {
-          url: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: postData.title,
-          type: "image/jpg", // Add explicit image type for LinkedIn
-        },
-      ],
-      locale: 'en_US',
-      type: 'article',
-      publishedTime: postData.date,
-      authors: postData.author ? [postData.author] : ["Bashar Ovi"],
-      // Add these LinkedIn-specific properties
-      "article:published_time": postData.date,
-      "article:author": postData.author || "Bashar Ovi",
-    },
+    // Pass flag to avoid incrementing view count during metadata generation
+    const postData = await Promise.race([postPromise, timeoutPromise]);
     
-    // Keep twitter metadata if needed
-    twitter: {
-      card: 'summary_large_image',
-      title: postData.title,
-      description: description,
-      images: [imageUrl],
-      creator: '@basharovi',
-    },
-    
-    alternates: {
-      canonical: url,
-    },
-    
-    // Add these specific meta tags that LinkedIn sometimes looks for
-    other: {
-      'og:title': postData.title,
-      'og:description': description,
-      'og:image': imageUrl,
-      'og:url': url,
-      'og:type': 'article',
-      'og:site_name': `Bashar Ovi's Blog`,
+    // If we got a timeout result with no title, return default metadata
+    if (!postData.title) {
+      return {
+        title: "Blog Post | Bashar Ovi's Blog",
+        description: "Loading blog post content..."
+      };
     }
-  };
+    
+    // Use excerpt or generate a default description if excerpt is missing
+    const description = postData.excerpt || `Read the blog post titled "${postData.title}" by ${postData.author || 'Bashar Ovi'}.`;
+    
+    // Construct the canonical URL for the post
+    const url = `https://basharovi.vercel.app/blog/${params?.id}`; // Fixed potential undefined issue
+    
+    // Use thumbnail or a default image if thumbnail is missing
+    // LinkedIn requires absolute URLs for images
+    const imageUrl = postData.thumbnail 
+      ? `https://basharovi.vercel.app${postData.thumbnail}` 
+      : `https://basharovi.vercel.app/images/blog-thumbnail.jpg`; 
+
+    return {
+      title: `${postData.title} | Bashar Ovi's Blog`,
+      description: description,
+      authors: postData.author ? [{ name: postData.author }] : [{ name: "Bashar Ovi" }],
+      keywords: postData.keywords || "blog, software engineering, C#, .NET",
+      
+      openGraph: {
+        title: postData.title,
+        description: description,
+        url: url,
+        siteName: `Bashar Ovi's Blog`,
+        images: [
+          {
+            url: imageUrl,
+            width: 1200,
+            height: 630,
+            alt: postData.title,
+            type: "image/jpg", // Add explicit image type for LinkedIn
+          },
+        ],
+        locale: 'en_US',
+        type: 'article',
+        publishedTime: postData.date,
+        authors: postData.author ? [postData.author] : ["Bashar Ovi"],
+        // Add these LinkedIn-specific properties
+        "article:published_time": postData.date,
+        "article:author": postData.author || "Bashar Ovi",
+      },
+      
+      // Keep twitter metadata if needed
+      twitter: {
+        card: 'summary_large_image',
+        title: postData.title,
+        description: description,
+        images: [imageUrl],
+        creator: '@basharovi',
+      },
+      
+      alternates: {
+        canonical: url,
+      },
+      
+      // Add these specific meta tags that LinkedIn sometimes looks for
+      other: {
+        'og:title': postData.title,
+        'og:description': description,
+        'og:image': imageUrl,
+        'og:url': url,
+        'og:type': 'article',
+        'og:site_name': `Bashar Ovi's Blog`,
+      }
+    };
+  } catch (error) {
+    console.error('Error generating metadata:', error);
+    // Return fallback metadata
+    return {
+      title: "Blog Post | Bashar Ovi's Blog",
+      description: "Loading blog post content..."
+    };
+  }
 }
