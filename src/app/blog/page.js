@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FiCalendar, FiUser, FiArrowRight } from 'react-icons/fi';
+import { FiCalendar, FiUser, FiArrowRight, FiEye } from 'react-icons/fi';
 import { getSortedPostsData } from '@/lib/posts';
 
 export default async function BlogPage() {
@@ -23,7 +23,7 @@ export default async function BlogPage() {
         {/* Blog Posts Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {allPostsData && allPostsData.length > 0 ? (
-            allPostsData.map(({ id, date, title, author, excerpt, thumbnail }, index) => (
+            allPostsData.map(({ id, date, title, author, excerpt, thumbnail, views }, index) => (
               <article
                 key={id}
                 className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col"
@@ -54,6 +54,11 @@ export default async function BlogPage() {
                         <span>{author}</span>
                       </div>
                     )}
+                    {/* View Counter */}
+                    <div className="flex items-center">
+                      <FiEye className="mr-2 flex-shrink-0" />
+                      <span>{views || 0} views</span>
+                    </div>
                   </div>
 
                   {/* Title */}

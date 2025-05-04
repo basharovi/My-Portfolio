@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/ui/ScrollToTop";
+import PageTransitionWrapper from "@/components/layout/PageTransitionWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -81,7 +82,9 @@ export default function RootLayout({ children }) {
         <ThemeProvider>
           <Navbar />
           <main className="flex-grow pt-16">
-            {children}
+            <PageTransitionWrapper>
+              {children}
+            </PageTransitionWrapper>
           </main>
           <Footer />
           <ScrollToTop />

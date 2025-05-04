@@ -1,6 +1,7 @@
-import { getAllPostIds, getPostData, getSortedPostsData } from '@/lib/posts';
-import { FiCalendar, FiUser, FiArrowLeft } from 'react-icons/fi';
+import { getAllPostIds, getPostData, getSortedPostsData, incrementPostViews } from '@/lib/posts';
+import { FiCalendar, FiUser, FiArrowLeft, FiEye } from 'react-icons/fi';
 import Link from 'next/link';
+import { revalidatePath } from 'next/cache';
 
 // This function generates the possible paths for all blog posts at build time
 export async function generateStaticParams() {
@@ -8,11 +9,25 @@ export async function generateStaticParams() {
   return paths;
 }
 
+// Server action to increment view counter
+async function incrementViews(id) {
+  'use server';
+  incrementPostViews(id);
+  revalidatePath(`/blog/${id}`);
+}
+
 // This function fetches the data for a specific post
 async function getPost(params) {
   // Check if params is an object with id property or if it's the id string directly
   const id = params?.id || params;
   const postData = await getPostData(id);
+  
+  // Increment view count server-side (only once)
+  // This will run only on initial page load, not on metadata generation
+  if (params?.incrementView !== false) {
+    incrementPostViews(id);
+  }
+  
   return postData;
 }
 
@@ -60,6 +75,11 @@ export default async function Post({ params }) {
                   <span>By {postData.author}</span>
                 </div>
               )}
+              {/* View Counter */}
+              <div className="flex items-center">
+                <FiEye className="mr-2 flex-shrink-0 animate-pulse" />
+                <span>{postData.views} views</span>
+              </div>
             </div>
           </header>
 
@@ -102,7 +122,8 @@ export default async function Post({ params }) {
 
 // Optional: Add metadata generation for SEO
 export async function generateMetadata({ params }) {
-  const postData = await getPost(params);
+  // Pass flag to avoid incrementing view count during metadata generation
+  const postData = await getPost({ ...params, incrementView: false });
   
   // Use excerpt or generate a default description if excerpt is missing
   const description = postData.excerpt || `Read the blog post titled "${postData.title}" by ${postData.author || 'Bashar Ovi'}.`;
@@ -114,7 +135,7 @@ export async function generateMetadata({ params }) {
   // LinkedIn requires absolute URLs for images
   const imageUrl = postData.thumbnail 
     ? `https://basharovi.vercel.app${postData.thumbnail}` 
-    : `https://basharovi.vercel.app/images/basharovi.jpg`; 
+    : `https://basharovi.vercel.app/images/blog-thumbnail.jpg`; 
 
   return {
     title: `${postData.title} | Bashar Ovi's Blog`,

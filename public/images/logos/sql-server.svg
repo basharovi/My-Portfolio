@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" rx="10" fill="#E02127"/>
+  <text x="50" y="45" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">SQL</text>
+  <text x="50" y="70" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">Server</text>
+</svg> 
