@@ -3,45 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FiSettings, FiCode, FiLayout, FiServer, FiDatabase, FiTool, FiLayers, FiCloud } from 'react-icons/fi';
+import { FiCode, FiServer, FiTool, FiLayers, FiCloud } from 'react-icons/fi';
 
-// Using Iconify for better quality, professionally designed icons
-// Iconify provides SVG icons from multiple icon sets through a unified API
-const techLogos = {
-  'C#': 'https://api.iconify.design/vscode-icons:file-type-csharp2.svg?color=%23512BD4&width=60&height=60',
-  'JavaScript': 'https://api.iconify.design/logos:javascript.svg?width=60&height=60',
-  'TypeScript': 'https://api.iconify.design/logos:typescript-icon.svg?width=60&height=60',
-  'MS SQL Server': 'https://api.iconify.design/logos:microsoft-sql-server.svg?width=60&height=60',
-  'PostgreSQL': 'https://api.iconify.design/logos:postgresql.svg?width=60&height=60',
-  'Azure Cosmos DB': 'https://api.iconify.design/logos:azure.svg?width=60&height=60',
-  'ASP.NET Core MVC': 'https://api.iconify.design/vscode-icons:file-type-asp.svg?width=60&height=60',
-  'ASP.NET Core Web API': 'https://api.iconify.design/logos:dotnet.svg?width=60&height=60',
-  'WPF': 'https://api.iconify.design/simple-icons:dotnet.svg?color=%23512BD4&width=60&height=60',
-  'Xamarin.Forms': 'https://api.iconify.design/simple-icons:xamarin.svg?color=%233498DB&width=60&height=60',
-  'Vue.js': 'https://api.iconify.design/logos:vue.svg?width=60&height=60',
-  'Angular': 'https://api.iconify.design/logos:angular-icon.svg?width=60&height=60',
-  'Azure': 'https://api.iconify.design/logos:azure-icon.svg?width=60&height=60',
-  'Docker': 'https://api.iconify.design/logos:docker-icon.svg?width=60&height=60',
-  'Layered Architecture': 'https://api.iconify.design/carbon:layers.svg?color=%23E91E63&width=60&height=60',
-  'Clean Architecture': 'https://api.iconify.design/carbon:clean.svg?color=%23E91E63&width=60&height=60',
-  'Microservice Architecture': 'https://api.iconify.design/carbon:microservices-1.svg?color=%23E91E63&width=60&height=60',
-  'Repository': 'https://api.iconify.design/carbon:data-base.svg?color=%23E91E63&width=60&height=60',
-  'Saga': 'https://api.iconify.design/carbon:workflow.svg?color=%23E91E63&width=60&height=60',
-  'Adapter': 'https://api.iconify.design/carbon:connector.svg?color=%23E91E63&width=60&height=60',
-  'Azure Table Storage': 'https://api.iconify.design/carbon:data-table.svg?color=%230078D4&width=60&height=60',
-  'Azure File Share': 'https://api.iconify.design/carbon:document-share.svg?color=%230078D4&width=60&height=60',
-  'Azure Functions': 'https://api.iconify.design/logos:azure-functions.svg?width=60&height=60',
-  'Azure Container Registry': 'https://api.iconify.design/logos:azure-container-registry.svg?width=60&height=60',
-  'Azure App Service': 'https://api.iconify.design/logos:azure-app-service.svg?width=60&height=60',
-  'Azure Key Vault': 'https://api.iconify.design/carbon:security.svg?color=%230078D4&width=60&height=60',
-  'Azure OneLake': 'https://api.iconify.design/carbon:data-lake.svg?color=%230078D4&width=60&height=60',
-  'Azure DevOps': 'https://api.iconify.design/vscode-icons:file-type-azure-devops.svg?width=60&height=60',
-  'MQTT Broker': 'https://api.iconify.design/carbon:ibm-watson-iot-connect.svg?color=%2332CD32&width=60&height=60',
-  'Azure Data Studio': 'https://api.iconify.design/vscode-icons:file-type-azure.svg?width=60&height=60',
-  'Syncfusion': 'https://api.iconify.design/carbon:chart-line-data.svg?color=%2332CD32&width=60&height=60',
-  'Jira': 'https://api.iconify.design/logos:jira.svg?width=60&height=60',
-  'Upsource': 'https://api.iconify.design/carbon:code-review.svg?color=%2332CD32&width=60&height=60',
-};
 
 const skills = [
   {
@@ -95,7 +58,6 @@ const skills = [
       'Azure Table Storage',
       'Azure File Share',
       'Azure Functions',
-      'Azure Container Registry',
       'Azure App Service',
       'Azure Key Vault',
       'Azure OneLake'
@@ -115,7 +77,6 @@ const skills = [
       'Azure Data Studio',
       'Syncfusion',
       'Docker',
-      'Jira',
       'Upsource',
     ],
     color: 'from-green-500 to-green-600',
